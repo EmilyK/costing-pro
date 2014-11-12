@@ -1,6 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from dashboard import views
+from registration.backends.simple.views import RegistrationView
+
+
 
 urlpatterns = patterns('',
     # Examples:
@@ -8,5 +11,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'dashboard.views.home', name='index'),
-)
+    url(r'^$', 'dashboard.views.home', name='index'),   
+    url(r'^accounts/', include('reg.urls')),
+ )

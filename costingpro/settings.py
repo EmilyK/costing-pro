@@ -28,16 +28,34 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+SITE_ID = 2
 
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard'
+    'dashboard',    
+    'django_extensions',
+    'reg',
 )
+
+REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_OPEN = True
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
+#ACCOUNT_ACTIVATION_DAYS = 7
+#SEND_ACTIVATION_EMAIL = False
+
+# leave uncommented when in production
+# =====================================
+# EMAIL_HOST = ""
+# MAIL_PORT = ""
+# etc.
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -48,6 +66,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+TEMPLATE_DIRS = (
+    os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'costingpro', 'templates')),
+)
+
+# import pdb; pdb.set_trace()
 
 ROOT_URLCONF = 'costingpro.urls'
 
@@ -82,7 +106,23 @@ USE_L10N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# WORK around to check for localsettings file (for development)
+# Keep all production settings up... and overrided them in the
+# `localsetitings.py` file... an example has been provided.
+try:
+    import sys
+    if os.environ.has_key('LOCAL_SETTINGS'):
+        # the LOCAL_SETTINGS environment variable is used by the build server
+        sys.path.insert(0, os.path.dirname(os.environ['LOCAL_SETTINGS']))
+        from settings_test import *
+    else:
+        from localsettings import *
+except ImportError:
+    pass
