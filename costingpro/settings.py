@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-SITE_ID = 2
+SITE_ID = 1
 
 #REGISTRATION_AUTO_LOGIN = True
 # REGISTRATION_OPEN = True
