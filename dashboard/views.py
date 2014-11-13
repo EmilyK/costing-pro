@@ -1,10 +1,14 @@
-from django.shortcuts import RequestContext, render_to_response
+from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse
 
 
 def home(request):
-	if request.user and request.user.is_authenticated():
-		return redirect("business_profile") # it has to exist..otherwise error
+	if request.user.is_authenticated():
+		return redirect('business_profile')
 	else:
 		return render_to_response('dashboard/home.html', 
 								  {}, 
 								  RequestContext(request))
+
+
+def business_profile(request):
+	return HttpResponse("Business Profile")
