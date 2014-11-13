@@ -43,12 +43,12 @@ INSTALLED_APPS = (
     'reg',
 )
 
-REGISTRATION_AUTO_LOGIN = True
-REGISTRATION_OPEN = True
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/accounts/login/'
+#REGISTRATION_AUTO_LOGIN = True
+# REGISTRATION_OPEN = True
+# LOGIN_REDIRECT_URL = '/'
+# LOGIN_URL = '/accounts/login/'
 #ACCOUNT_ACTIVATION_DAYS = 7
-#SEND_ACTIVATION_EMAIL = False
+
 
 # leave uncommented when in production
 # =====================================
