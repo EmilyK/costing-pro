@@ -1,4 +1,4 @@
 *.sqlite3
 *.pyc
 localsettings.py
-django_reg_noact
+#django_reg_noact
