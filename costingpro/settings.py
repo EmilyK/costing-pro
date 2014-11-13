@@ -30,19 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 SITE_ID = 2
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.sites',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'dashboard',    
-    'django_extensions',
-    'reg',
-)
-
 #REGISTRATION_AUTO_LOGIN = True
 # REGISTRATION_OPEN = True
 # LOGIN_REDIRECT_URL = '/'
@@ -105,8 +92,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
@@ -126,3 +111,16 @@ try:
         from localsettings import *
 except ImportError:
     pass
+
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.sites',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'dashboard',    
+    'django_extensions',
+    'reg',
+)
