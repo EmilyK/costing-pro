@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here
 class BusinessProfile(models.Model):
 	CATEGORIES = (('CRAFTS', 'Crafts'),)
 
@@ -10,5 +10,5 @@ class BusinessProfile(models.Model):
 	parish=models.CharField(max_length=20)
 	village= models.CharField(max_length=20)
 	category = models.CharField(max_length=15, choices=CATEGORIES)
-	telephone_number = models.IntegerField(max_length=10, blank=False)
+	telephone_number = models.CharField(max_length=10, blank=False)
 
