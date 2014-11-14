@@ -7,3 +7,4 @@ python-openid==2.2.5
 requests==2.4.3
 requests-oauthlib==0.4.2
 six==1.8.0
+git+git://github.com/miclovich/django-reg-noact.git
