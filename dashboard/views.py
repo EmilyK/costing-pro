@@ -11,4 +11,8 @@ def home(request):
 
 
 def business_profile(request):
-	return HttpResponse("Business Profile")
+	return render_to_response('dashboard/business_profile.html',
+		{},
+		RequestContext(request)
+		)
+		
