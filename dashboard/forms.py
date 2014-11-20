@@ -8,10 +8,18 @@ class BusinessProfileForm(forms.ModelForm):
         model = BusinessProfile
         fields = (
         	'business_name', 
+        	'category',
 			'city',
 			'division',
 			'parish',
 			'village',
-			'category',
 			'telephone_number'
         	)
+        
+    # def clean_business_name(self):
+    # 	data = self.cleaned_data['business_name']
+
+    # 	if 'business_name' is ('')
+
+    # 		ValidationError: (('This field is required.'))
+    	

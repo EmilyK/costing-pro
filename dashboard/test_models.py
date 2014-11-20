@@ -12,3 +12,4 @@ class BusinessProfileTest(TestCase):
 		#the len is 8 because django auto adds id for each model	
 		self.assertEqual(8, len(business_profile._meta.fields))
 
+	
