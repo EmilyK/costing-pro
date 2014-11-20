@@ -37,3 +37,7 @@ def business_profile(request):
 	return render_to_response('dashboard/business_profile.html', c)
 		
  # {'form': form}
+def menu(request):
+ 	return render_to_response('dashboard/menu.html', 
+								  {}, 
+								  RequestContext(request))
