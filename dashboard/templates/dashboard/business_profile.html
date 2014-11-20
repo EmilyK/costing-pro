@@ -30,10 +30,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-     
-
 </head>
+
 <body>
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,20 +64,20 @@
         </div>
         <!-- /.container -->
     </nav>
+
+    <div class='alert warning'>Hi</div>
+    {% block container %}
+
     <h1>Business Profile</h1>
     <form method="post" action="">{% csrf_token %}
 
         {{ form.as_p }}
       <input type="submit" value="submit">
-
-
-
     </form>
 
+    {% endblock %}
 
-
-
-<footer>
+    <footer>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -102,6 +100,7 @@
                 </div>
             </div>
         </div>
+
     </footer>
 
     <!-- jQuery -->

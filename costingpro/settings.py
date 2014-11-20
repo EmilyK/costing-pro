@@ -138,6 +138,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',    
-    'django_extensions',
     'reg',
+    'django_extensions',
 )
