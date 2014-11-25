@@ -95,3 +95,11 @@ def menu(request):
     return render_to_response('dashboard/menu.html',
         {},
                               RequestContext(request))
+
+
+
+def costing(request):
+    return render_to_response('dashboard/costing.html',
+        {},
+        RequestContext(request)
+        )
