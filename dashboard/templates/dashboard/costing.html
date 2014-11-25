@@ -9,32 +9,26 @@
  	</div> 	
 
 	<div class='col-md-2'>
-		<span class='label label-info'>Select your costing model</span><br/>
-		<div style='margin-top: 5px;'></div>
-		<form role='form' class='form'>
-			<div class='input-group'>
-				<select id='selectBox' class='form-control'>
-					<option value= 'weekly' selected='selected'>Daily</option>
-					<option value='monthly'>Weekly</option>
-					<option value='daily'>Monthly</option>
-				</select>
-			</div>
+		<span class='label label-info' style='font-size:1.5em;'>Select your costing model</span><br/>
+
+<form role="form" class="form" action="." method="POST">
+			{% csrf_token %}
+			<p style='margin-top: 1em;'><label for="id_time_rate">Time rate:</label> <select id="id_time_rate" name="time_rate">
+			<option value="" selected="selected">---------</option>
+			<option value="d">daily</option>
+			<option value="w">weekly</option>
+			<option value="m">monthly</option>
+			</select></p>
+
+<div style="margin-top: 5em;"></div>
+<span class='label label-info' style='font-size:1.5em;;'>Enter Rawmaterial</span><br/>
+<p  style='margin-top: 1em'><label for="id_name">Name:</label> <input id="id_name" maxlength="50" name="name" type="text"></p>
+			<button class="btn btn-default">Submit</button>
 		</form>
+		{#form.as_p#}
 	</div>
 
-	<div class='col-md-2'>
-		<span class='label label-info'>Select Raw Materials</span><br/>
-		<div style='margin-top: 5px;'></div>
-		<form role='form' class='form'>
-			<div class='input-group'>
-				<select id='selectBox' class='form-control'>
-					<option value= 'weekly' selected='selected'>Thread</option>
-					<option value='monthly'>Cotton</option>
-					<option value='daily'>Cloth</option>
-					<option value='daily'>Fibre</option>
-				</select>
-			</div>
-		</form>
+	<div class='col-md-2'>	
 	</div>
 
 </div>
