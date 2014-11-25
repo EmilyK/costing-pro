@@ -1,0 +1,42 @@
+{% extends "dashboard/home.html" %}
+{% load staticfiles %}
+
+
+{% block container %}
+ <div class='row'>
+ 	<div class='col-md-1' style='margin-top: 10px;'>
+ 		<div id='container'></div>
+ 	</div> 	
+
+	<div class='col-md-2'>
+		<span class='label label-info'>Select your costing model</span><br/>
+		<div style='margin-top: 5px;'></div>
+		<form role='form' class='form'>
+			<div class='input-group'>
+				<select id='selectBox' class='form-control'>
+					<option value= 'weekly' selected='selected'>Daily</option>
+					<option value='monthly'>Weekly</option>
+					<option value='daily'>Monthly</option>
+				</select>
+			</div>
+		</form>
+	</div>
+
+	<div class='col-md-2'>
+		<span class='label label-info'>Select Raw Materials</span><br/>
+		<div style='margin-top: 5px;'></div>
+		<form role='form' class='form'>
+			<div class='input-group'>
+				<select id='selectBox' class='form-control'>
+					<option value= 'weekly' selected='selected'>Thread</option>
+					<option value='monthly'>Cotton</option>
+					<option value='daily'>Cloth</option>
+					<option value='daily'>Fibre</option>
+				</select>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+{% endblock %}
