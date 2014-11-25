@@ -1,6 +1,7 @@
 import user
-from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse
-from forms import BusinessProfileForm, UserSignUpForm, UserLoginForm
+from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse, get_object_or_404
+from forms import BusinessProfileForm, UserSignUpForm, UserLoginForm, RawmaterialForm
+from models import RawMaterial
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf, request
@@ -99,7 +100,27 @@ def menu(request):
 
 
 def costing(request):
+    form = RawmaterialForm()
+
+    if request.method == 'POST':
+        form = RawmaterialForm(request.POST)
+
+        if form.is_valid():
+
+            raw_material = form.save()
+
+            return redirect('costing_detail', pk=raw_material.pk)
+
+        else:
+            pass
+
     return render_to_response('dashboard/costing.html',
-        {},
+        {'form': form},
         RequestContext(request)
         )
+def costing_detail(request, pk):
+    raw_material = get_object_or_404(RawMaterial, pk=pk)
+
+    return render_to_response('dashboard/costing_detail.html',
+            {},
+                                  RequestContext(request))
