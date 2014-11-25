@@ -1,4 +1,4 @@
-cenv
+env
 *.sqlite3
 localsettings.py
 

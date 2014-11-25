@@ -1,5 +1,6 @@
 from django import forms
-from models import BusinessProfile
+from models import BusinessProfile, UserSignUp, UserLogin
+from django.contrib.auth.models import User
 
 class BusinessProfileForm(forms.ModelForm):
 
@@ -16,10 +17,25 @@ class BusinessProfileForm(forms.ModelForm):
 			'telephone_number'
         	)
         
-    # def clean_business_name(self):
-    # 	data = self.cleaned_data['business_name']
+class UserSignUpForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
 
-    # 	if 'business_name' is ('')
+    class Meta:
+        model = UserSignUp
+        fields = (
+            'firstname',
+            'lastname',
+            'username', 
+            'password'
+            )
 
-    # 		ValidationError: (('This field is required.'))
-    	
+
+class UserLoginForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = UserLogin
+        fields = (
+            'username',
+            'password'
+            )
