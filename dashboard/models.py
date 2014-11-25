@@ -25,3 +25,13 @@ class UserSignUp(models.Model):
 class UserLogin(models.Model):
 	username= models.CharField(max_length=100, blank=False)
 	password= models.CharField(max_length=15, blank=False)
+
+
+class RawMaterial(models.Model):
+	time_rate = models.CharField(max_length=50, choices=(('d', 'daily'), 
+		                         ('w', 'weekly'),
+		                         ('m', 'monthly')))
+	name = models.CharField(max_length=50)
+
+	def __unicode__(self):
+		return self.name
