@@ -10,6 +10,6 @@ class BusinessProfileTest(TestCase):
 		for field in fields:
 			self.assertTrue(hasattr(business_profile,field))
 		#the len is 8 because django auto adds id for each model	
-		self.assertEqual(8, len(business_profile._meta.fields))
+		self.assertEqual(9, len(business_profile._meta.fields))
 
 	
