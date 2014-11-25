@@ -1,7 +1,7 @@
 env
 *.sqlite3
 localsettings.py
-
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
