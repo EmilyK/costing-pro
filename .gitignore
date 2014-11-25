@@ -7,6 +7,7 @@ localsettings.py
 __pycache__/
 *.py[cod]
 *.pyc
+.idea/
 # C extensions
 *.so
 
