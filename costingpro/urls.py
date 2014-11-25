@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 	url(r'^accounts/auth_view/$', 'dashboard.views.auth_view', name='auth_view'),
 	url(r'^accounts/signup/$', 'dashboard.views.signup', name='signup'),
 	url(r'^business_profile/$', 'dashboard.views.business_profile', name='business_profile'),
+	url(r'^business_profile/costing/$', 'dashboard.views.costing', name='costing'),
 	url(r'^menu/$', 'dashboard.views.menu', name='menu'),
     url(r'^admin/', include(admin.site.urls)),
  )
