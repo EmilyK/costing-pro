@@ -27,7 +27,7 @@ class UserSignUpForm(forms.ModelForm):
         fields = (
             'firstname',
             'lastname',
-            'username', 
+            'email', 
             'password'
             )
 
@@ -38,7 +38,7 @@ class UserLoginForm(forms.ModelForm):
     class Meta:
         model = UserLogin
         fields = (
-            'username',
+            'email',
             'password'
             )
 

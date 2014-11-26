@@ -19,11 +19,11 @@ class BusinessProfile(models.Model):
 class UserSignUp(models.Model):
 	firstname= models.CharField(max_length=100, blank=False)
 	lastname= models.CharField(max_length=100, blank=False)
-	username= models.CharField(max_length=100, blank=False)
+	email= models.CharField(max_length=100, blank=False)
 	password= models.CharField(max_length=15, blank=False)
 
 class UserLogin(models.Model):
-	username= models.CharField(max_length=100, blank=False)
+	email= models.CharField(max_length=100, blank=False)
 	password= models.CharField(max_length=15, blank=False)
 
 

@@ -40,23 +40,30 @@ def signup(request):
 def login(request):
     c = {}
     c.update(csrf(request))
-    form = UserLoginForm(request.POST)
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
 
-    if user is not None:
-        auth.login(request, user)
+        if form.is_valid():
 
-        return HttpResponseRedirect('/business_profile')
+            form.save()
+
+            return menu(request)
+
+        else:
+            print form.errors
+            c['form'] = form
+
+
     else:
-    	return render_to_response('dashboard/login.html', c)
+        form = UserLoginForm()
+        c['form'] = form
 
+    return render_to_response('dashboard/login.html', c)
 
 def auth_view(request):
-    username = request.POST.get('username', '')
+    eamil = request.POST.get('email', '')
     password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+    user = auth.authenticate(eamil=eamil, password=password)
 
     if user is not None:
         auth.login(request, user)
@@ -118,6 +125,7 @@ def costing(request):
         {'form': form},
         RequestContext(request)
         )
+    
 def costing_detail(request, pk):
     raw_material = get_object_or_404(RawMaterial, pk=pk)
 
