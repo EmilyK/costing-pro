@@ -17,6 +17,8 @@ urlpatterns = patterns('',
 	url(r'^accounts/signup/$', 'dashboard.views.signup', name='signup'),
 	url(r'^business_profile/$', 'dashboard.views.business_profile', name='business_profile'),
 	url(r'^business_profile/costing/$', 'dashboard.views.costing', name='costing'),
+	url(r'^business_profile/(?P<pk>\d+)/costing/raw-materials/$', 
+		'dashboard.views.costing_raw_materials', name='costing_raw_materials'),
 	url(r'^costing/costing_detail/(?P<pk>\d+)/$', 'dashboard.views.costing_detail', name='costing_detail'),
 	url(r'^menu/$', 'dashboard.views.menu', name='menu'),
 

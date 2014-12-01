@@ -22,6 +22,8 @@ class RawMaterial(models.Model):
 		                         ('w', 'weekly'),
 		                         ('m', 'monthly')))
 	name = models.CharField(max_length=50)
+	size = models.DecimalField(max_digits=10, default=0.00, decimal_places=3)
+	cost = models.DecimalField(max_digits=50, default=0.00, decimal_places=5)
+	business_profile = models.ForeignKey(BusinessProfile, null=True, blank=True)
 
-	def __unicode__(self):
-		return self.name
+	

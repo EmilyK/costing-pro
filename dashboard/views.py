@@ -120,3 +120,12 @@ def costing_detail(request, pk):
             {},
                                   RequestContext(request))
 
+def costing_raw_materials(request, pk):
+    business_profile = get_object_or_404(BusinessProfile, pk=pk)
+    if request.user.is_authenticated:
+        raw_materials = RawMaterial.objects.filter(user=request.user)
+    else:
+        raw_materials = None
+    return render_to_response('dashboard/costing_raw_materials.html',
+                              {'raw_materials': raw_materials}, 
+                              RequestContext(request))

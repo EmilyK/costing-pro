@@ -38,5 +38,7 @@ class RawmaterialForm(forms.ModelForm):
         model = RawMaterial
         fields = (
             'time_rate',
-            'name'
+            'name',
+            'size',
+            'cost'
             )
