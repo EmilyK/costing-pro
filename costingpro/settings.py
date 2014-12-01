@@ -138,5 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',    
-    'django_extensions',
-)
+    )
+
+LOGIN_URL = 'django.contrib.auth.views.login'
+LOGIN_REDIRECT_URL = '/business_profile'

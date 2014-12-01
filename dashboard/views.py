@@ -1,10 +1,11 @@
 import user
 from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse, get_object_or_404
-from forms import BusinessProfileForm, UserSignUpForm, UserLoginForm, RawmaterialForm
+from forms import BusinessProfileForm, UserSignUpForm, RawmaterialForm
 from models import RawMaterial
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf, request
+from django.contrib.auth import authenticate, login
 
 
 def home(request):
@@ -12,60 +13,58 @@ def home(request):
             {},
                                   RequestContext(request))
 
+def  signup(request):
+    context = RequestContext(request)
 
-def signup(request):
-    c = {}
-    c.update(csrf(request))
+    registered = False
+
     if request.method == 'POST':
-        form = UserSignUpForm(request.POST)
+        form = UserSignUpForm(data=request.POST)
 
         if form.is_valid():
+            user = form.save()
 
-            form.save()
+            user.set_password(user.password)
+            user.save()
 
-            return login(request)
+            profile = form.save(commit=False)
+            profile.user = user
 
+            profile.save()
+            registered = True
         else:
             print form.errors
-            c['form'] = form
-
 
     else:
         form = UserSignUpForm()
-        c['form'] = form
 
-    return render_to_response('dashboard/signup.html', c)
-
+    return render_to_response(
+            'dashboard/signup.html',
+            {'form': form, 'registered': registered},
+            context)
 
 def login(request):
-    c = {}
-    c.update(csrf(request))
-    form = UserLoginForm(request.POST)
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+    context = RequestContext(request)
 
-    if user is not None:
-        auth.login(request, user)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
 
-        return HttpResponseRedirect('/business_profile')
+        user = authenticate(username=username, password=password)
+        
+        if user:
+            if user.is_active:
+                login(request, user)
+                return RediectView(url='/dashboard/business_profile.html')
+            else:
+                return HttpResponse("Your account is disabled.")
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+
     else:
-    	return render_to_response('dashboard/login.html', c)
-
-
-def auth_view(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
-
-    if user is not None:
-        auth.login(request, user)
-
-        return HttpResponseRedirect('/business_profile')
-    else:
-        return HttpResponseRedirect('/signup')
-
-
+        return render_to_response('registration/login.html', {}, context)
+    
 def business_profile(request):
     c = {}
     c.update(csrf(request))
@@ -82,21 +81,16 @@ def business_profile(request):
             print form.errors
             c['form'] = form
 
-
     else:
         form = BusinessProfileForm()
         c['form'] = form
 
     return render_to_response('dashboard/business_profile.html', c)
 
-    # {'form': form}
-
-
 def menu(request):
     return render_to_response('dashboard/menu.html',
         {},
                               RequestContext(request))
-
 
 
 def costing(request):
@@ -118,9 +112,11 @@ def costing(request):
         {'form': form},
         RequestContext(request)
         )
+    
 def costing_detail(request, pk):
     raw_material = get_object_or_404(RawMaterial, pk=pk)
 
     return render_to_response('dashboard/costing_detail.html',
             {},
                                   RequestContext(request))
+
