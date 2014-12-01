@@ -69,11 +69,14 @@
   {% block container %}
 
    {% if form.errors%}
-    <p class ='error'>Sory, invalid username or password</p>
+    <p class ='error'>Sorry, invalid username or password</p>
     {% endif %}
     <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+            Email: <input type="text" name="email" />
+            <br /><br>
+            Password: <input type="password" name="password" />
+            <br /><br>
     <input type="submit" name="submit" value="Log in" />
     </form>
         
