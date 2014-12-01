@@ -16,6 +16,7 @@ urlpatterns = patterns('',
 	#url(r'^accounts/auth_view/$', 'dashboard.views.auth_view', name='auth_view'),
 	url(r'^accounts/signup/$', 'dashboard.views.signup', name='signup'),
 	url(r'^business_profile/$', 'dashboard.views.business_profile', name='business_profile'),
+	# TODO -> be able to get a single business profile in case of M2M relationship
 	url(r'^business_profile/costing/$', 'dashboard.views.costing', name='costing'),
 	url(r'^business_profile/(?P<pk>\d+)/costing/raw-materials/$', 
 		'dashboard.views.costing_raw_materials', name='costing_raw_materials'),
