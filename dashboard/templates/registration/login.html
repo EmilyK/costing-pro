@@ -30,11 +30,13 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- Navigation -->
+    
 
 </head>
-<body>
 
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -56,32 +58,40 @@
                         <a href="{% url 'signup' %}">Signup</a>
                     </li>
                     <li>
-                        <a href="{% url 'login' %}">Login</a>
+                        <a href="{% url 'django.contrib.auth.views.login' %}">Login</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
-  </nav>
-  <div class='alert warning'>Hi</div>
+    </nav>
+    
+    <div class='alert warning'>Hi</div>
+{% block content %}
 
-  {% block container %}
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
 
-   {% if form.errors%}
-    <p class ='error'>Sorry, invalid username or password</p>
-    {% endif %}
-    <form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-            Email: <input type="text" name="email" />
-            <br /><br>
-            Password: <input type="password" name="password" />
-            <br /><br>
-    <input type="submit" name="submit" value="Log in" />
-    </form>
-        
-  {% endblock %}
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
 
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}  
 <footer>
         <div class="container">
             <div class="row">
@@ -94,7 +104,7 @@
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
-                            <a href="#services">Login</a>
+                            <a href="#services">Signin</a>
                         </li>
                         <li class="footer-menu-divider">&sdot;</li>
                         <li>
@@ -115,7 +125,5 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
 </body>
-
-</html>
 
 </html>

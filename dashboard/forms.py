@@ -1,5 +1,5 @@
 from django import forms
-from models import BusinessProfile, UserSignUp, UserLogin, RawMaterial
+from models import BusinessProfile, RawMaterial
 from django.contrib.auth.models import User
 
 
@@ -18,29 +18,19 @@ class BusinessProfileForm(forms.ModelForm):
 			'telephone_number'
         	)
         
-
 class UserSignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
-        model = UserSignUp
+        model = User
         fields = (
-            'firstname',
-            'lastname',
+            'first_name',
+            'last_name',
+            'username',
             'email', 
             'password'
             )
 
-
-class UserLoginForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = UserLogin
-        fields = (
-            'email',
-            'password'
-            )
 
 class RawmaterialForm(forms.ModelForm):
 
