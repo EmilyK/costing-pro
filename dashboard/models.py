@@ -12,10 +12,10 @@ class BusinessProfile(models.Model):
 	village= models.CharField(max_length=20)
 	category = models.CharField(max_length=15, choices=CATEGORIES)
 	telephone_number = models.CharField(max_length=10, blank=False)
-	
 	user = models.ForeignKey(User, null=True)
-	# phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$', 
- #                                error_message = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))
+
+	def __unicode__(self):
+		return self.business_name
 
 class RawMaterial(models.Model):
 	time_rate = models.CharField(max_length=50, choices=(('d', 'daily'), 
@@ -26,4 +26,5 @@ class RawMaterial(models.Model):
 	cost = models.DecimalField(max_digits=50, default=0.00, decimal_places=5)
 	business_profile = models.ForeignKey(BusinessProfile, null=True, blank=True)
 
-	
+	def __unicode__(self):
+		return self.name
