@@ -1,5 +1,5 @@
 from django import forms
-from models import BusinessProfile, RawMaterial
+from models import BusinessProfile, RawMaterial, Product
 from django.contrib.auth.models import User
 
 
@@ -40,3 +40,4 @@ class RawmaterialForm(forms.ModelForm):
             'time_rate',
             'name'
             )
+
