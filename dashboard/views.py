@@ -55,7 +55,7 @@ def login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return RediectView(url='/dashboard/business_profile.html')
+                return RediectView(url='/dashboard/menu.html')
             else:
                 return HttpResponse("Your account is disabled.")
         else:
