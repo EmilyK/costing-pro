@@ -17,11 +17,16 @@ urlpatterns = patterns('',
 	url(r'^accounts/signup/$', 'dashboard.views.signup', name='signup'),
 	url(r'^business_profile/$', 'dashboard.views.business_profile', name='business_profile'),
 	# TODO -> be able to get a single business profile in case of M2M relationship
-	url(r'^business_profile/costing/$', 'dashboard.views.costing', name='costing'),
-	url(r'^business_profile/(?P<pk>\d+)/costing/raw-materials/$', 
+	url(r'^business_profile/(?P<pk>\d+)/new-inventory/$', 
+		 'dashboard.views.new_inventory', name='new_inventory'),
+	url(r'^business_profile/(?P<pk>\d+)/raw-materials/$', 
 		'dashboard.views.costing_raw_materials', name='costing_raw_materials'),
-	url(r'^costing/costing_detail/(?P<pk>\d+)/$', 'dashboard.views.costing_detail', name='costing_detail'),
+	url(r'^business_profile/(?P<pk>\d+)/raw-materials/(?P<id>\d+)/$', 'dashboard.views.costing_detail', name='costing_detail'),
+	# url(r'^business_profile/(?P<pk>\d+)/raw-materials/(?P<id>\d+)/edit/$', 
+		# 'dashboard.views.raw_material_edit', name='raw_material_edit'),
 	url(r'^menu/$', 'dashboard.views.menu', name='menu'),
+	url(r'^business_profile_list/$', 'dashboard.views.business_profile_list', name='business_profiles'),
+
 
     url(r'^admin/', include(admin.site.urls)),
  )
