@@ -19,6 +19,7 @@ class BusinessProfileForm(forms.ModelForm):
         	)
         
 class UserSignUpForm(forms.ModelForm):
+    #TODO please hash the passwords for security
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
@@ -38,6 +39,7 @@ class RawmaterialForm(forms.ModelForm):
         model = RawMaterial
         fields = (
             'time_rate',
-            'name'
+            'name',
+            'size',
+            'cost'
             )
-
