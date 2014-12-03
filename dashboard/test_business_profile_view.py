@@ -8,7 +8,7 @@ class BusinessProfileViewTest(TestCase):
 
 	def test_should_render_business_profile_template(self):
 		client = Client()
-		response = client.get('/business_profile/')
+		response = client.get('/business_profile/new/')
 		
 		self.assertEquals(200, response.status_code)
 		self.assertTemplateUsed(response, 'dashboard/business_profile.html')
