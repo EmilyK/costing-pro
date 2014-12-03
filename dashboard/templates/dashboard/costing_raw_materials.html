@@ -1,0 +1,39 @@
+{% extends "dashboard/home.html" %}
+
+{% block container %}
+<ol class="breadcrumb">
+  <li><a href="{% url  'index' %}">Home</a></li>
+  <li><a href="{% url  'business_profiles' %}">Business Profiles</a></li>
+  <li class="active">Inventory</li>
+</ol>
+
+<div class='col-md-10 col-md-push-1 col-md-pull-1'>
+	{% if raw_materials %}
+	<table class='table-striped table'>
+		<thead>
+			<th>Raw material Name</th>
+			<th>Size</th>
+			<th>Cost</th>
+		</thead>
+		<tbody>
+			{% for raw_material in raw_materials %}
+			<tr>
+				<td>{{ raw_material.name }}</td>
+				<td>{{ raw_material.size }}</td>
+				<td>{{ raw_material.cost }}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td colspan=2><span style='text-decoration:underline'>Total</span></td>
+				<td>{{ total }}</td>
+			</tr>
+		</tbody>
+		
+	</table>
+	{% else %}
+	<div class='alert alert-warning'>
+		<p>There are no raw materials for your business profile.</p>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

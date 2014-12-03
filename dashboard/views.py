@@ -1,11 +1,13 @@
 import user
 from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse, get_object_or_404
 from forms import BusinessProfileForm, UserSignUpForm, RawmaterialForm
-from models import RawMaterial
+from models import RawMaterial, BusinessProfile
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.core.context_processors import csrf, request
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.hashers import make_password
+from django.db.models import Sum
 
 
 def home(request):
@@ -45,7 +47,6 @@ def  signup(request):
 
 def login(request):
     context = RequestContext(request)
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -65,6 +66,16 @@ def login(request):
     else:
         return render_to_response('registration/login.html', {}, context)
     
+
+def business_profile_list(request):
+    if request.user.is_authenticated():
+        business_profiles = BusinessProfile.objects.filter(user=request.user)
+        return render_to_response('dashboard/business_profile_list.html',
+            {'business_profiles': business_profiles}, RequestContext(request))
+    else:
+        return HttpResponse("You need to login first!")
+
+
 def business_profile(request):
     c = {}
     c.update(csrf(request))
@@ -73,7 +84,11 @@ def business_profile(request):
 
         if form.is_valid():
 
-            form.save()
+            business_profile = form.save()
+            if request.user.is_authenticated():                
+                # attribute user to business profile because of FK
+                business_profile.user = request.user
+                business_profile.save()
 
             return menu(request)
 
@@ -93,19 +108,25 @@ def menu(request):
                               RequestContext(request))
 
 
-def costing(request):
+def new_inventory(request, pk):
     form = RawmaterialForm()
 
-    if request.method == 'POST':
+    business_profile = get_object_or_404(BusinessProfile, pk=pk)
+
+    if request.method == 'POST' and request.user.is_authenticated():
         form = RawmaterialForm(request.POST)
 
         if form.is_valid():
 
             raw_material = form.save()
+            # attribute raw material to "business profile"
+            raw_material.business_profile = business_profile
+            raw_material.save()
 
-            return redirect('costing_detail', pk=raw_material.pk)
+            return redirect('costing_raw_materials', pk=pk) #, id=raw_material.id)
 
         else:
+            # TODO -> hande errors here!
             pass
 
     return render_to_response('dashboard/costing.html',
@@ -113,10 +134,25 @@ def costing(request):
         RequestContext(request)
         )
     
-def costing_detail(request, pk):
-    raw_material = get_object_or_404(RawMaterial, pk=pk)
+def costing_detail(request, pk, id):
+    # TODO -> change name of function to `raw_material`
+    business_profile = get_object_or_404(BusinessProfile, pk=pk)
+    raw_material = business_profile.rawmaterial_set.get(id=id)
 
     return render_to_response('dashboard/costing_detail.html',
             {},
                                   RequestContext(request))
 
+def costing_raw_materials(request, pk):
+    # TODO -> remove `all()` from below
+    business_profile = get_object_or_404(BusinessProfile, pk=pk)
+    total = 0.0
+    if request.user.is_authenticated():
+        raw_materials = RawMaterial.objects.filter(business_profile=business_profile)
+        # raw_materials = RawMaterial.objects.all()
+        total = raw_materials.aggregate(Sum('cost'))['cost__sum']
+    else:
+        raw_materials = None
+    return render_to_response('dashboard/costing_raw_materials.html',
+                              {'raw_materials': raw_materials, 'total': total}, 
+                              RequestContext(request))

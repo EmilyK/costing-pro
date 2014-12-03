@@ -1,5 +1,5 @@
 from django import forms
-from models import BusinessProfile, RawMaterial, Product
+from models import BusinessProfile, RawMaterial
 from django.contrib.auth.models import User
 
 

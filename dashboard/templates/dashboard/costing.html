@@ -4,45 +4,17 @@
 
 {% block container %}
  <div class='row'>
- 	<div class='col-md-1' style='margin-top: 10px;'>
- 		<div id='container'></div>
- 	</div> 	
-
-	<div class='col-md-2'>
-		<span class='label label-info' style='font-size:1.5em;'>Select your costing model</span><br/>
-
-<form role="form" class="form" action="." method="POST">
+	<div class='col-md-11 col-md-push-1'>
+		<form role="form" class="form-horizontal" action="" method="POST">
 			{% csrf_token %}
-			<p style='margin-top: 1em;'><label for="id_time_rate">Time rate:</label> <select id="id_time_rate" name="time_rate">
-			<option value="" selected="selected">---------</option>
-			<option value="d">daily</option>
-			<option value="w">weekly</option>
-			<option value="m">monthly</option>
-			</select></p>
-
-<div style="margin-top: 5em;"></div>
-<span class='label label-info' style='font-size:1.5em;;'>Enter Rawmaterials</span><br/>
-<p  style='margin-top: 1em' class='raw-materials-input'>
-<label for="id_name">Name:</label>
- <input id="id_name-0" maxlength="50" name="name" type="text">
- </p>
+			{{ form.as_p }}
 			<button class="btn btn-default add-more" >+</button>
 			<button class="btn btn-default">Submit</button>
 		</form>
-		{#form.as_p#}
-	</div>
-
-	<div class='col-md-2'>	
 	</div>
 	<script src="{% static 'js/jquery-1.11.1.js' %}"></script>
 	<script src="{% static 'js/rawmaterial.js' %}"></script>
 
-<script type='text/template' id='materials-template'>
-	<p style='margin-top: 1em'>
-	<label for="id_name">Rawmaterial Name:</label>
- 	<input id="id_name-0" maxlength="50" name="name" type="text">
- 	</p>
- </script>
 </div>
 
 {% endblock %}
