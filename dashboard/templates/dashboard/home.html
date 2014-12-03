@@ -62,7 +62,7 @@
                         <a href="{% url 'signup' %}">Signup</a>
                     </li>
                     <li>
-                        <a href="{% url 'django.contrib.auth.views.login' %}">Login</a>
+                    <a href="{% url 'dashboard.views._login' %}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -71,8 +71,26 @@
         </div>
         <!-- /.container -->
     </nav>
-    
-    <div class='alert warning'>Hi</div>
+
+    {% block messages %}
+    <div style='margin-top:5em;'></div>
+        {% if messages %}
+        <div class='container'>
+            <div class='row'>
+                <div class='col-lg-12'>
+                    <div class='alert alert-warning'>
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </div>
+        {% endif %}
+    {% endblock %}
+
     {% block container %}
 <!-- Header -->
     <div class="intro-header">
