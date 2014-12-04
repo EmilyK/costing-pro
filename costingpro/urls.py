@@ -12,6 +12,8 @@ urlpatterns = patterns('',
 	url(r'^$', 'dashboard.views.home', name='index'),
     url(r"^login/$", "dashboard.views._login"),
     url(r"^logout/$", "django.contrib.auth.views.logout"),
+    url(r"^update_profile/$", "dashboard.views.update_profile", name ="update_profile"),
+    url(r"^update_profile_success/$", "dashboard.views.update_profile_success", name="update_profile_success"),
     url(r'^accounts/signup/$', 'dashboard.views.signup', name='signup'),
 	url(r'^business_profile/new/$', 'dashboard.views.business_profile', name='business_profile_new'),
 	# TODO -> be able to get a single business profile in case of M2M relationship

@@ -1,5 +1,5 @@
 from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse, get_object_or_404
-from forms import BusinessProfileForm, UserSignUpForm, RawmaterialForm, LoginForm
+from forms import BusinessProfileForm, UserSignUpForm, RawmaterialForm, LoginForm, UpdateProfileForm
 from models import RawMaterial, BusinessProfile
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth, messages
@@ -63,6 +63,25 @@ def _login(request):
         return render_to_response('registration/login.html', {'form': form},
          RequestContext(request))
     
+def update_profile(request):
+    args = {}
+
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, instance=request.user)
+        form.actual_user = request.user
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('update_profile_success'))
+    else:
+        form = UpdateProfileForm()
+
+    args['form'] = form
+    return render_to_response('registration/update_profile.html', args)
+
+def update_profile_success(request):
+    return render_to_response('registration/update_profile_success.html',{},
+                              RequestContext(request))
+
 
 def business_profile_list(request):
     if request.user.is_authenticated():
