@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -50,13 +49,52 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <style type="text/css">
+            ul{
+            padding: 0;
+            list-style: none;
+            }
+            ul li{
+                float: left;
+                width: 100px;
+                text-align: center;
+            }
+            ul li a{
+                display: block;
+                padding: 5px 10px;
+                color: #333;
+                background: #f2f2f2;
+                text-decoration: none;
+            }
+            ul li a:hover{
+                color: #fff;
+                background: #939393;
+            }
+            ul li ul{
+                display: none;
+            }
+            ul li:hover ul{
+                display: block; /* display the dropdown */
+            }
+                    </style>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#">About</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li>
-                        <a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+                        <a href="">{{fullname}}</a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'dashboard.views.update_profile' %}">Edit User Profile</a></li>
+                            </li>
+
+                        </ul>
+                    </li>
+                              
                     {% else %}
                     <li>
                         <a href="{% url 'signup' %}">Signup</a>

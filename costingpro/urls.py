@@ -26,7 +26,7 @@ urlpatterns = patterns('',
 		# 'dashboard.views.raw_material_edit', name='raw_material_edit'),
 	url(r'^menu/$', 'dashboard.views.menu', name='menu'),
 	url(r'^business_profile_list/$', 'dashboard.views.business_profile_list', name='business_profiles'),
-
+	
 
     url(r'^admin/', include(admin.site.urls)),
  )

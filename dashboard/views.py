@@ -79,7 +79,7 @@ def update_profile(request):
     return render_to_response('registration/update_profile.html', args)
 
 def update_profile_success(request):
-    return render_to_response('registration/update_profile_success.html',{},
+    return render_to_response('registration/update_profile_success.html',{'fullname':request.user.username},
                               RequestContext(request))
 
 
@@ -89,7 +89,7 @@ def business_profile_list(request):
         if business_profiles.exists():
 
             return render_to_response('dashboard/business_profile_list.html',
-            {'business_profiles': business_profiles}, RequestContext(request))
+            {'fullname':request.user.username, 'business_profiles': business_profiles}, RequestContext(request))
         else:
             messages.add_message(request, messages.INFO, "Please create a new business profile first")
             return redirect('business_profile_new')
@@ -114,11 +114,11 @@ def business_profile(request):
             print form.errors
 
     return render_to_response('dashboard/business_profile.html', 
-                              {'form': form, 'messages': messages.get_messages(request)}, 
+                              {'fullname':request.user.username, 'form': form, 'messages': messages.get_messages(request)}, 
                               RequestContext(request))
 
 def menu(request):
-    return render_to_response('dashboard/menu.html',{},
+    return render_to_response('dashboard/menu.html',{'fullname':request.user.username},
                               RequestContext(request))
 
 
@@ -144,7 +144,7 @@ def new_inventory(request, pk):
             pass
 
     return render_to_response('dashboard/costing.html',
-        {'form': form},
+        {'fullname':request.user.username, 'form': form},
         RequestContext(request)
         )
     
@@ -154,7 +154,7 @@ def costing_detail(request, pk, id):
     raw_material = business_profile.rawmaterial_set.get(id=id)
 
     return render_to_response('dashboard/costing_detail.html',
-            {},
+            {'fullname':request.user.username},
                                   RequestContext(request))
 
 def costing_raw_materials(request, pk):
@@ -169,5 +169,5 @@ def costing_raw_materials(request, pk):
     else:
         raw_materials = None
     return render_to_response('dashboard/costing_raw_materials.html',
-                              {'raw_materials': raw_materials, 'total': total}, 
+                              {'fullname':request.user.username, 'raw_materials': raw_materials, 'total': total}, 
                               RequestContext(request))
