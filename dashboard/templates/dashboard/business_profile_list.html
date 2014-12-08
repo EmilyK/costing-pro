@@ -3,16 +3,16 @@
 {% block container %}
 
 <div class='col-md-10 col-md-push-1 col-md-pull-1'>
-{%for business_profile in business_profiles %}
-<ul class="list-group">
-  <li class="list-group-item list-group-item-success">
-  {{ business_profile }}
-  </li>
-  <li class="list-group-item list-group-item-info">
-	Inventory: {{ business_profile.rawmaterial_set.count }}
-	| <a href="{% url  'costing_raw_materials' business_profile.pk %}">list</a> | <a href="{% url  'new_inventory' business_profile.pk %}">New</a>
-  </li>
-</ul>
-{%endfor%}
+	{%for business_profile in business_profiles %}
+	<ul class="list-group">
+	  <li class="list-group-item list-group-item-success">
+	  {{ business_profile }}
+	  </li>
+	  <li class="list-group-item list-group-item-info">
+		Inventory: {{ business_profile.rawmaterial_set.count }}
+		| <a href="{% url  'costing_raw_materials' business_profile.pk %}">list</a> | <a href="{% url  'new_inventory' business_profile.pk %}">New</a>
+	  </li>
+	</ul>
+	{%endfor%}
 </div>
 {% endblock %}
