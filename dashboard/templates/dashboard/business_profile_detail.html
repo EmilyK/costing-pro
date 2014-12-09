@@ -1,0 +1,19 @@
+{% extends "dashboard/home.html" %}
+{% load staticfiles %}
+
+{% block container %}
+
+ <div class='row'>
+	<div class='col-md-11 col-md-push-1'>
+	<ol class="breadcrumb">
+	  <li><a href="{% url  'business_profile_detail' business_profile.pk %}">Home</a></li>
+	  <li class="active">{{business_profile}}</li>
+	</ol>
+	
+	<a href="{% url 'products' business_profile.pk %}" class='btn btn-success'> List of Products</a><br/>
+	<hr>
+	<a href="{% url 'new_product' business_profile.pk %}" class='btn btn-primary'>Add a new Product</a>
+	</div>
+</div>
+
+{% endblock %}

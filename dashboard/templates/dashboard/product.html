@@ -1,0 +1,36 @@
+{% extends "dashboard/home.html" %}
+{% load staticfiles %}
+
+{% block container %}
+
+
+
+ <div class='row'>
+	<div class='col-md-11 col-md-push-1'>
+	<ol class="breadcrumb">
+	  <li><a href="{% url  'business_profile_detail' business_profile.pk %}">Business Profile</a></li>
+	  <li><a href="/business_profile/{{business_profile.pk}}/products/{{ product.id }}/add-raw-material/">Add Raw Materials</a></li>
+	  <li class="active">{{product}}</li>
+	</ol>
+
+		<div class='panel'>
+			<div class='panel-header'>
+				<h2>{{ product }}</h2>
+			</div>
+			<div class='panel-body'>
+				Raw material used:
+				<hr>
+				<ul>
+				{% for rm in product_rawmaterials %}
+					<li>
+					{{ rm.raw_material}} <span class='badge'>{{ rm.amount }}</span>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

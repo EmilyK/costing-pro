@@ -1,0 +1,24 @@
+{% extends "dashboard/home.html" %}
+
+{% block container %}
+
+<ol class="breadcrumb">
+  <li><a href="{% url  'index' %}">Home</a></li>
+  <li><a href="{% url  'business_profiles' %}">Business Profiles</a></li>
+  <li class="active">Inventory</li>
+</ol>
+
+<div class='col-md-10 col-md-push-1 col-md-pull-1'>
+{% if products %}
+<ul>
+{% for product in products %}
+	<li>{{ product.product.name }}</li>
+{% endfor %}
+</ul>
+{% else %}
+<div class='alert warning'>
+	There are no products in this business profile
+</div>
+{% endif %}
+</div>
+{% endblock %}
