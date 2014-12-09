@@ -5,11 +5,12 @@
 {%for business_profile in business_profiles %}
 <ul class="list-group">
   <li class="list-group-item list-group-item-success">
-  {{ business_profile }}
+  <a href="{% url  'business_profile_detail' business_profile.pk %}">{{ business_profile }}</a>
   </li>
   <li class="list-group-item list-group-item-info">
 	Inventory: {{ business_profile.rawmaterial_set.count }}
-	| <a href="{% url  'costing_raw_materials' business_profile.pk %}">list</a> | <a href="{% url  'new_inventory' business_profile.pk %}">New</a>
+	| <a href="{% url  'costing_raw_materials' business_profile.pk %}">list</a> <span class='pull-right'> <a href="{% url  'new_inventory' business_profile.pk %}" class='btn btn-default'>New Raw Material</a>
+	<a href="{% url 'new_product' business_profile.pk %}" class='btn btn-success'>Add Product</a></span>
   </li>
 </ul>
 {%endfor%}
