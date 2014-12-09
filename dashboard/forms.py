@@ -1,5 +1,5 @@
 from django import forms
-from models import BusinessProfile, RawMaterial
+from models import BusinessProfile, RawMaterial, Product
 from django.contrib.auth.models import User
 
 
@@ -49,3 +49,23 @@ class LoginForm(forms.Form):
 
     username= forms.CharField(required=True)
     password= forms.CharField(required=True, widget=forms.PasswordInput)
+
+class ProductForm(forms.ModelForm):
+
+    class Meta:
+        model =  Product 
+        exclude = ['business_profile', 'created', ]
+
+
+
+class ProductRawMaterialForm(forms.Form):
+
+    raw_material = forms.ChoiceField(label=u'Raw Material', required=True)
+    amount=  forms.CharField(required=True)
+    
+    def __init__(self, business_profile, *args, **kwargs):
+        super(ProductRawMaterialForm, self).__init__(*args, **kwargs)
+        self.fields['raw_material'].choices = [
+                                                (rm.id, rm.name) 
+                                                for rm in RawMaterial.objects.filter(business_profile=business_profile)]
+    
