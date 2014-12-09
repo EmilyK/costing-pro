@@ -1,5 +1,5 @@
 from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse, get_object_or_404
-from forms import BusinessProfileForm, UserSignUpForm, RawmaterialForm, LoginForm, ProductForm, ProductRawMaterialForm
+from forms import BusinessProfileForm, UserSignUpForm, RawmaterialForm, LoginForm, ProductForm, ProductRawMaterialForm, UpdateProfileForm
 from models import RawMaterial, BusinessProfile, Product, ProductRawMaterial
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth, messages
