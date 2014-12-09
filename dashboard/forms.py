@@ -50,6 +50,7 @@ class LoginForm(forms.Form):
     username= forms.CharField(required=True)
     password= forms.CharField(required=True, widget=forms.PasswordInput)
 
+
 class ProductForm(forms.ModelForm):
 
     class Meta:
@@ -69,3 +70,31 @@ class ProductRawMaterialForm(forms.Form):
                                                 (rm.id, rm.name) 
                                                 for rm in RawMaterial.objects.filter(business_profile=business_profile)]
     
+
+class UpdateProfileForm(forms.ModelForm):
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    username = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email')
+
+    def clean_email(self):
+        username = self.cleaned_data.get('username')
+        email = self.cleaned_data.get('email')
+
+        if email and User.objects.filter(email=email).exclude(username=username).count():
+            raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
+        return email
+
+    def save(self, commit=True):
+        user = super(UserSignUpForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+
+        return user
+

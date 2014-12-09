@@ -1,0 +1,1 @@
+web: gunicorn costingpro.wsgi --log-file -

@@ -12,6 +12,8 @@ urlpatterns = patterns('',
 	url(r'^$', 'dashboard.views.home', name='index'),
     url(r"^login/$", "dashboard.views._login"),
     url(r"^logout/$", "django.contrib.auth.views.logout"),
+    url(r"^update_profile/$", "dashboard.views.update_profile", name ="update_profile"),
+    url(r"^update_profile_success/$", "dashboard.views.update_profile_success", name="update_profile_success"),
     url(r'^accounts/signup/$', 'dashboard.views.signup', name='signup'),
 	url(r'^business_profile/new/$', 'dashboard.views.business_profile', name='business_profile_new'),
 	url(r'^business_profile/(?P<pk>\d+)/$', 'dashboard.views.business_profile_detail',
@@ -38,7 +40,7 @@ urlpatterns = patterns('',
 		# 'dashboard.views.raw_material_edit', name='raw_material_edit'),
 	url(r'^menu/$', 'dashboard.views.menu', name='menu'),
 	url(r'^business_profile_list/$', 'dashboard.views.business_profile_list', name='business_profiles'),
-
+	
 
     url(r'^admin/', include(admin.site.urls)),
  )

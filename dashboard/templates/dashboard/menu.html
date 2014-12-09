@@ -35,40 +35,43 @@ body {
   }
 }
 
-</style>
+</style>  
+  <div class="tile">
+    <a href="{% url  'business_profiles' %}">
+    <div class = content>
+    Inventory
+    </div>
+    </a>
 
-<div class="tile">
-  <a href="{% url  'business_profiles' %}">
-  <div class = content>
-  Inventory
   </div>
-  </a>
 
 </div>
 
 <div class="tile">
   <a href="{% url 'all_products' %}">
-  <div class = content>
+  <div class = "content">
   Products
   </div>
   </a>
 </div>
 
-<div class="tile">
-  <div class = content>
-  Costing
-  </div>
-</div>
 
-<div class="tile">
-  <div class = content>
-  report
+  <div class="tile">
+    <div class = content>
+    Costing
+    </div>
   </div>
-</div>
 
-<div class="tile">
-  <div class = content>
-  business analysis
+  <div class="tile">
+    <div class = content>
+    report
+    </div>
   </div>
-</div>
+
+  <div class="tile">
+    <div class = content>
+    business analysis
+    </div>
+  </div>
+
 {% endblock %}
