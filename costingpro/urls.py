@@ -14,9 +14,23 @@ urlpatterns = patterns('',
     url(r"^logout/$", "django.contrib.auth.views.logout"),
     url(r'^accounts/signup/$', 'dashboard.views.signup', name='signup'),
 	url(r'^business_profile/new/$', 'dashboard.views.business_profile', name='business_profile_new'),
-	# TODO -> be able to get a single business profile in case of M2M relationship
+	url(r'^business_profile/(?P<pk>\d+)/$', 'dashboard.views.business_profile_detail',
+			name='business_profile_detail'),
 	url(r'^business_profile/(?P<pk>\d+)/new-inventory/$', 
 		 'dashboard.views.new_inventory', name='new_inventory'),
+	# products
+	url(r'^business_profile/(?P<pk>\d+)/new-product/$', 
+		 'dashboard.views.new_product', name='new_product'),
+	url(r'^business_profile/(?P<pk>\d+)/products/$', 
+		 'dashboard.views.products', name='products'),
+	url(r'^all-products/$', 'dashboard.views.all_products', name='all_products'),
+	url(r'^business_profile/(?P<pk>\d+)/products/(?P<id>\d+)$', 
+		 'dashboard.views.product', name='product'),
+
+	url(r'^business_profile/(?P<pk>\d+)/products/(?P<id>\d+)/add-raw-material/$', 
+		 'dashboard.views.product_add_raw_material', name='product_add_raw_material'),
+	# end products
+
 	url(r'^business_profile/(?P<pk>\d+)/raw-materials/$', 
 		'dashboard.views.costing_raw_materials', name='costing_raw_materials'),
 	url(r'^business_profile/(?P<pk>\d+)/raw-materials/(?P<id>\d+)/$', 'dashboard.views.costing_detail', name='costing_detail'),
