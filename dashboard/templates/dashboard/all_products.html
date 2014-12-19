@@ -14,7 +14,7 @@
 <tbody>
 {%for product in products %}
 <tr>
-	<td>{{ product.name }}</td>
+	<td>{{ product }}</td>
 	<td>
 	<ul>
 	{% for rm in product.productrawmaterial_set.all %}
