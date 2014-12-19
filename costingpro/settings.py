@@ -118,6 +118,21 @@ STATIC_URL = '/static/'
 # WORK around to check for localsettings file (for development)
 # Keep all production settings up... and overrided them in the
 # `localsetitings.py` file... an example has been provided.
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.sites',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'dashboard',    
+    ]
+
+LOGIN_URL = 'django.contrib.auth.views.login'
+LOGIN_REDIRECT_URL = '/business_profile'
+
 try:
     import sys
     if os.environ.has_key('LOCAL_SETTINGS'):
@@ -128,17 +143,3 @@ try:
         from localsettings import *
 except ImportError:
     pass
-
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.sites',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'dashboard',    
-    )
-
-LOGIN_URL = 'django.contrib.auth.views.login'
-LOGIN_REDIRECT_URL = '/business_profile'
