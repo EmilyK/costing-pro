@@ -33,6 +33,10 @@ urlpatterns = patterns('',
 		 'dashboard.views.product_add_raw_material', name='product_add_raw_material'),
 	# end products
 
+	#price products
+	# url(r'^pricing/(?P<pk>\d+)/products/(?P<id>\d+)$', 
+		 # 'dashboard.views.pricing_product', name='pricing'),
+
 	url(r'^business_profile/(?P<pk>\d+)/raw-materials/$', 
 		'dashboard.views.costing_raw_materials', name='costing_raw_materials'),
 	url(r'^business_profile/(?P<pk>\d+)/raw-materials/(?P<id>\d+)/$', 'dashboard.views.costing_detail', name='costing_detail'),
