@@ -9,12 +9,29 @@
 </ol>
 
 <div class='col-md-10 col-md-push-1 col-md-pull-1'>
-{% if products %}
-<ul>
-{% for product in products %}
-	<li>{{ product.product.name }}</li>
+{% if product_raw_materials %}
+
+
+{{ values }}
+<table class='table table-striped'>
+<thead>
+	<tr>
+		<th>Product Name</th>
+		<th>Product Size</th>
+		<th>Product Cost (estimated)</th>
+	</tr>
+</thead>
+<tbody>
+{% for key, values in product_raw_materials.items %}
+	<tr>
+		<td>{{ key }}</td>
+		<td>{{ values.product_size|upper }}</td>
+		<td><span class='badge'>{{ values.estimated_price }}</span></td>
+	</tr>
 {% endfor %}
-</ul>
+</tbody>
+
+</table>
 {% else %}
 <div class='alert warning'>
 	There are no products in this business profile
