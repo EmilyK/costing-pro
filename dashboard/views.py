@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.db.models import Sum
-from .utils import check_duplicates
+# from .utils import check_duplicates
 
 
 def home(request):
@@ -171,10 +171,10 @@ def new_product(request, pk):
         form = ProductForm(request.POST)
         if form.is_valid():
             # check for duplicates
-            check_duplicates(Product, 
-                             form.cleaned_data['name'], 
-                             form.cleaned_data['product_size'],
-                             business_profile)
+            # check_duplicates(Product, 
+            #                  form.cleaned_data['name'], 
+            #                  form.cleaned_data['product_size'],
+            #                  business_profile)
 
             product = form.save()
             # attribute "business profile" to product
@@ -263,13 +263,14 @@ def products(request, pk):
     container = {}
 
     for prm in product_raw_materials:
-        if container.has_key(prm.product.name) and \
-                container[prm.product.name]["product_size"] == prm.product.product_size:
-            container[prm.product.name]['product_raw_materials'].append(prm)
+        key = "{0}-{1}".format(prm.product.name, prm.product.id )
+        if container.has_key(key) and \
+                container[key]["product_size"] == prm.product.product_size:
+            container[key]['product_raw_materials'].append(prm)
         else:
-            container[prm.product.name] = {'product_raw_materials': [prm]}
-            container[prm.product.name]["estimated_price"] = 0
-            container[prm.product.name]["product_size"] = prm.product.product_size
+            container[key] = {'product_raw_materials': [prm]}
+            container[key]["estimated_price"] = 0
+            container[key]["product_size"] = prm.product.product_size
             
 
     # sanitize and compute prices
