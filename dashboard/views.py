@@ -1,12 +1,12 @@
 from django.shortcuts import RequestContext, render_to_response, redirect, HttpResponse, get_object_or_404
+from django.core.urlresolvers import reverse
 from forms import BusinessProfileForm, UserSignUpForm, RawmaterialForm, LoginForm, ProductForm, ProductRawMaterialForm, UpdateProfileForm
 from models import RawMaterial, BusinessProfile, Product, ProductRawMaterial
-from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib import auth, messages
-from django.core.context_processors import csrf, request
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import make_password
 from django.db.models import Sum
+from .utils import check_duplicates
 
 
 def home(request):
@@ -141,8 +141,14 @@ def new_inventory(request, pk):
         if form.is_valid():
 
             raw_material = form.save()
+
+            # duplicate original size
+            raw_material.original_size = form.data['size']
+
             # attribute raw material to "business profile"
             raw_material.business_profile = business_profile
+
+            # re-save
             raw_material.save()
 
             return redirect('costing_raw_materials', pk=pk) #, id=raw_material.id)
@@ -163,8 +169,12 @@ def new_product(request, pk):
 
     if request.method == 'POST' and request.user.is_authenticated():
         form = ProductForm(request.POST)
-
         if form.is_valid():
+            # check for duplicates
+            check_duplicates(Product, 
+                             form.cleaned_data['name'], 
+                             form.cleaned_data['product_size'],
+                             business_profile)
 
             product = form.save()
             # attribute "business profile" to product
@@ -247,9 +257,38 @@ def product_add_raw_material(request, pk, id):
 
 def products(request, pk):
     business_profile = get_object_or_404(BusinessProfile, pk=pk)
-    products = ProductRawMaterial.objects.filter(business_profile=business_profile)
+    product_raw_materials = ProductRawMaterial.objects.filter(business_profile=\
+                                                              business_profile)
+
+    container = {}
+
+    for prm in product_raw_materials:
+        if container.has_key(prm.product.name) and \
+                container[prm.product.name]["product_size"] == prm.product.product_size:
+            container[prm.product.name]['product_raw_materials'].append(prm)
+        else:
+            container[prm.product.name] = {'product_raw_materials': [prm]}
+            container[prm.product.name]["estimated_price"] = 0
+            container[prm.product.name]["product_size"] = prm.product.product_size
+            
+
+    # sanitize and compute prices
+    for item in container:
+        _vals = [] # store price-ish
+        for val in container[item]["product_raw_materials"]:
+            __val = val.get_estimated_unit_price()
+            if isinstance(__val, str):
+                pass
+            else:
+                _vals.append(__val)
+        container[item]["estimated_price"] = sum(_vals)
+
+        # container[item]["estimated_price"] = sum([val.get_estimated_unit_price() for val in container[item]["product_raw_materials"] if !isinstance(val.get_estimated_unit_price(), str)
+
+                                              # ])
+
     return render_to_response('dashboard/business_profile_product_list.html',
-                              {'products': products},
+                              {'product_raw_materials': container},
                               RequestContext(request))
 
 
@@ -263,7 +302,7 @@ def costing_detail(request, pk, id):
                                   RequestContext(request))
 
 def costing_raw_materials(request, pk):
-    # TODO -> remove `all()` from below
+
     business_profile = get_object_or_404(BusinessProfile, pk=pk)
     total = 0.0
 
