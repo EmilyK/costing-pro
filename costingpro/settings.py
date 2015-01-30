@@ -133,7 +133,7 @@ LOGIN_URL = 'django.contrib.auth.views.login'
 LOGIN_REDIRECT_URL = '/business_profile'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+# STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 dashboard_css_dir = os.path.join(BASE_DIR, 'dashboard')
