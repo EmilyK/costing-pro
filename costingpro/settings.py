@@ -133,12 +133,11 @@ LOGIN_URL = 'django.contrib.auth.views.login'
 LOGIN_REDIRECT_URL = '/business_profile'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-dashboard_css_dir = os.path.join(BASE_DIR, 'dashboard')
 STATICFILES_DIRS = (
-    os.path.join(dashboard_css_dir, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # Simplified static file serving.
@@ -156,5 +155,3 @@ try:
 except ImportError:
     pass
 
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
