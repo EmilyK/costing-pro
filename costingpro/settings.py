@@ -136,9 +136,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-print BASE_DIR
+dashboard_css_dir = os.path.join(BASE_DIR, 'dashboard')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR+'dashboard/', 'static'),
+    os.path.join(dashboard_css_dir, 'static'),
 )
 
 # Simplified static file serving.
